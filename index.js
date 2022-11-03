@@ -22,6 +22,14 @@ const client = new MongoClient(uri, {
 async function run() {
     try {
         const productCollection = client.db('emaJohn').collection('products');
+
+        app.get('/products', async (req, res) => {
+            const query = {};
+            const cursor = productCollection.find(query);
+            const products = await cursor.toArray();
+
+            res.send(products);
+        });
     } finally {
     }
 }
